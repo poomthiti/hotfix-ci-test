@@ -12,7 +12,9 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Output the branch name
-        run: echo $(echo $GITHUB_REF#refs/heads/)
+        run: echo $(echo $GITHUB_REF#refs/heads/*)
 
       - name: Output ref
-        run: echo $(echo $github.head_ref)
+        run: echo $(echo ${{github.head_ref}})
+      - name: Base ref
+        run: echo $(echo ${{github.base_ref}})
