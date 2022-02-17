@@ -16,3 +16,6 @@ jobs:
 
       - name: Check output
         run: echo ${{ steps.vars.outputs.short_ref }}
+
+      - name: Output the branch name
+        run: echo $(echo $GITHUB_REF | cut -d'/' -f 3)
