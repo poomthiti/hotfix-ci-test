@@ -5,17 +5,11 @@ name: Echo branch name
 # Controls when the workflow will run
 on: push
 jobs:
-  example:
+  Echo-branch:
+    if: startsWith(github.head_ref, 'hotfix/') == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set output
-        id: vars
-        run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
-
-      - name: Check output
-        run: echo ${{ steps.vars.outputs.short_ref }}
-
       - name: Output the branch name
-        run: echo $(echo $GITHUB_REF | cut -d'/' -f 3)
+        run: echo $(echo $GITHUB_REF)
