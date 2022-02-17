@@ -1,19 +1,54 @@
-# This is a basic workflow to help you get started with Actions
+# # This is a basic workflow to help you get started with Actions
 
-name: Echo branch name
+# name: Echo branch name
 
-# Controls when the workflow will run
+# # Controls when the workflow will run
+# on:
+#   push:
+#     branches: [hotfix/echo-testing]
+# jobs:
+#   Echo-branch:
+#     # if: startsWith(github.head_ref, 'hotfix/') == true
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+
+#       - name: Output the branch name
+#         run: echo $(echo $GITHUB_REF)
+
+#       - name: Output ref
+#         run: echo $(echo ${{github.head_ref}})
+
+#       - name: Base ref
+#         run: echo $(echo ${{github.base_ref}})
+
+name: Hotfix CI
+
 on:
-  push:
-    branches: [hotfix/echo-testing]
+  pull_request:
+    branches: [work-test]
+    types: [closed]
+
 jobs:
-  Echo-branch:
-    # if: startsWith(github.head_ref, 'hotfix/') == true
+  merge-hotfix-to-dev:
+    if: github.event.pull_request.merged == true && (github.head_ref == hotfix/echo-testing)
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
 
-      - name: Output the branch name
+      - name: Set env.BRANCH
+        run: echo "BRANCH=$(echo $GITHUB_REF | cut -d'/' -f 3)" >> $GITHUB_ENV
+
+      - name: Fetch and merge to test branch
+        run: |
+          git fetch --unshallow
+          git checkout dump
+          git pull
+          git merge --no-ff $BRANCH -m "Auto-merge hotfix to main"
+          git push
+        
+     - name: Output the branch name
         run: echo $(echo $GITHUB_REF)
 
       - name: Output ref
@@ -21,3 +56,4 @@ jobs:
 
       - name: Base ref
         run: echo $(echo ${{github.base_ref}})
+
