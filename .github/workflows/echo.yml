@@ -18,5 +18,6 @@ jobs:
 
       - name: Output ref
         run: echo $(echo ${{github.head_ref}})
+
       - name: Base ref
         run: echo $(echo ${{github.base_ref}})
