@@ -1,0 +1,34 @@
+name: Hotfix CI
+
+on:
+  pull_request:
+    branches: [work-test]
+    types: [closed]
+
+jobs:
+  merge-to-dump:
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'hotfix/')
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set Git config
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "Github Actions"
+
+      - name: Fetch and merge to dump branch and echo-1
+        run: |
+          git fetch --unshallow
+          git checkout ${{github.head_ref}}
+
+          git checkout dump
+          git pull
+          git merge --no-ff ${{github.head_ref}} -m "Auto-merge hotfix to dump"
+          git push
+
+          git checkout echo-1
+          git pull
+          git merge --no-ff ${{github.head_ref}} -m "Auto-merge hotfix to echo-1"
+          git push
