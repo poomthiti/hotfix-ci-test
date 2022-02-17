@@ -2,7 +2,7 @@ name: Hotfix CI
 
 on:
   pull_request:
-    branches: [work-test]
+    branches: [production]
     types: [closed]
 
 jobs:
@@ -18,17 +18,17 @@ jobs:
           git config --local user.email "actions@github.com"
           git config --local user.name "Github Actions"
 
-      - name: Fetch and merge to dump branch and echo-1
+      - name: Fetch and merge to main branch and test branch
         run: |
           git fetch --unshallow
           git checkout ${{github.head_ref}}
 
-          git checkout dump
+          git checkout main
           git pull
-          git merge --no-ff ${{github.head_ref}} -m "Auto-merge hotfix to dump"
+          git merge --no-ff ${{github.head_ref}} -m "Auto-merge hotfix to main"
           git push
 
-          git checkout echo-1
+          git checkout test
           git pull
-          git merge --no-ff ${{github.head_ref}} -m "Auto-merge hotfix to echo-1"
+          git merge --no-ff ${{github.head_ref}} -m "Auto-merge hotfix to test"
           git push
