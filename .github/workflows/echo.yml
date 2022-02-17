@@ -24,11 +24,8 @@ jobs:
           git merge --no-ff $BRANCH -m "Auto-merge hotfix to main"
           git push
 
-     - name: Output the branch name
-        run: echo $(echo $GITHUB_REF)
+      - name: Output ref
+        run: echo $(echo ${{github.head_ref}})
 
-    #   - name: Output ref
-    #     run: echo $(echo ${{github.head_ref}})
-
-    #   - name: Base ref
-    #     run: echo $(echo ${{github.base_ref}})
+      - name: Base ref
+        run: echo $(echo ${{github.base_ref}})
