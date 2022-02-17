@@ -6,10 +6,13 @@ name: Echo branch name
 on: push
 jobs:
   Echo-branch:
-    if: startsWith(github.head_ref, 'hotfix/') == true
+    # if: startsWith(github.head_ref, 'hotfix/') == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
       - name: Output the branch name
         run: echo $(echo $GITHUB_REF)
+
+      - name: Output ref
+        run: echo $(echo ${github.head_ref})
