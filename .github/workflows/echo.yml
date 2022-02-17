@@ -5,7 +5,7 @@ name: Echo branch name
 # Controls when the workflow will run
 on:
   push:
-    branches: [hotfix/echo-testingg]
+    branches: [hotfix/echo-testing]
 jobs:
   Echo-branch:
     # if: startsWith(github.head_ref, 'hotfix/') == true
