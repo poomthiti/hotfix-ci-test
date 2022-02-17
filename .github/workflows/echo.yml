@@ -40,13 +40,13 @@ jobs:
       - name: Set env.BRANCH
         run: echo "BRANCH=$(echo $GITHUB_REF | cut -d'/' -f 3)" >> $GITHUB_ENV
 
-      - name: Fetch and merge to test branch
-        run: |
-          git fetch --unshallow
-          git checkout dump
-          git pull
-          git merge --no-ff $BRANCH -m "Auto-merge hotfix to main"
-          git push
+      # - name: Fetch and merge to test branch
+      #   run: |
+      #     git fetch --unshallow
+      #     git checkout dump
+      #     git pull
+      #     git merge --no-ff $BRANCH -m "Auto-merge hotfix to main"
+      #     git push
         
      - name: Output the branch name
         run: echo $(echo $GITHUB_REF)
