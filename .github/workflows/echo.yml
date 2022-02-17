@@ -18,11 +18,17 @@ jobs:
           git config --local user.email "actions@github.com"
           git config --local user.name "Github Actions"
 
-      - name: Fetch and merge to test branch
+      - name: Fetch and merge to dump branch and echo-1
         run: |
           git fetch --unshallow
           git checkout ${{github.head_ref}}
+
           git checkout dump
           git pull
-          git merge --no-ff ${{github.head_ref}} -m "Auto-merge hotfix to main"
+          git merge --no-ff ${{github.head_ref}} -m "Auto-merge hotfix to dump"
+          git push
+
+          git checkout echo-1
+          git pull
+          git merge --no-ff ${{github.head_ref}} -m "Auto-merge hotfix to echo-1"
           git push
