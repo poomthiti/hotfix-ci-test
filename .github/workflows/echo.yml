@@ -7,7 +7,7 @@ on:
 
 jobs:
   merge-to-dump:
-    if: github.event.pull_request.merged == true && github.head_ref == "hotfix/echo-testing"
+    if: github.event.pull_request.merged == true && github.head_ref == 'hotfix/echo-testing'
     runs-on: ubuntu-latest
 
     steps:
