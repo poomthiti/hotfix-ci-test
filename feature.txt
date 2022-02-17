@@ -1,7 +1,4 @@
 1. First feature is here
-2. Second feature is here
-3. Third feature is here
-asda
+9. Super Important feat
 
-asdasd
 THIS IS THE NORMAL FIX YO
