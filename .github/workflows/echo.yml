@@ -7,28 +7,21 @@ on:
 
 jobs:
   merge-to-dump:
-    if: github.event.pull_request.merged == true && github.head_ref == 'hotfix/echo-testing'
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'hotfix/')
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set env.BRANCH
-        run: echo "BRANCH=$(echo $GITHUB_REF | cut -d'/' -f 3)" >> $GITHUB_ENV
+      - name: Set Git config
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "Github Actions"
 
-      - name: echo branch
-        run: echo $(echo $BRANCH)
-
-      # - name: Fetch and merge to test branch
-      #   run: |
-      #     git fetch --unshallow
-      #     git checkout dump
-      #     git pull
-      #     git merge --no-ff $BRANCH -m "Auto-merge hotfix to main"
-      #     git push
-
-      - name: Output ref
-        run: echo $(echo ${{github.head_ref}})
-
-      - name: Base ref
-        run: echo $(echo ${{github.base_ref}})
+      - name: Fetch and merge to test branch
+        run: |
+          git fetch --unshallow
+          git checkout dump
+          git pull
+          git merge --no-ff ${{github.head_ref}} -m "Auto-merge hotfix to main"
+          git push
