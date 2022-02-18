@@ -1,5 +1,5 @@
 1. First feature is here
 2. This second feature needed fix, the fix is very long.
-3. Third feature 
+3. Third feature needed fix very badly 
 4. The fourth feature
 THIS IS THE NORMAL FIX YO
