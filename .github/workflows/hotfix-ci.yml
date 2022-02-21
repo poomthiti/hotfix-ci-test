@@ -6,7 +6,7 @@ on:
     types: [closed]
 
 jobs:
-  auto-merge-hotfix:
+  auto-pr-hotfix:
     if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'hotfix/')
     runs-on: ubuntu-latest
 
@@ -18,17 +18,24 @@ jobs:
           git config --local user.email "actions@github.com"
           git config --local user.name "Github Actions"
 
-      - name: Fetch and merge to main branch and test branch
-        run: |
-          git fetch --unshallow
-          git checkout ${{github.head_ref}}
+      - name: Open hotfix PR to main branch
+        uses: repo-sync/pull-request@v2
+        with:
+          # source_branch: ""                                 # If blank, default: triggered branch
+          destination_branch: "main" # If blank, default: master
+          pr_title: "Pulling ${{ github.head_ref }} into main" # Title of pull request
+          pr_body: "Automatically created PR from branch: ${{ github.head_ref }} which has been merged into mainnet" # Full markdown support, requires pr_title to be set
+          pr_reviewer: "poomthiti" # Comma-separated list (no spaces)
+          pr_assignee: "actions-user" # Comma-separated list (no spaces)
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
-          git checkout main
-          git pull
-          git merge --no-ff ${{github.head_ref}} -m "Auto-merge hotfix to main"
-          git push
-
-          git checkout test
-          git pull
-          git merge --no-ff ${{github.head_ref}} -m "Auto-merge hotfix to test"
-          git push
+      - name: Open hotfix PR to test branch
+        uses: repo-sync/pull-request@v2
+        with:
+          # source_branch: ""                                 # If blank, default: triggered branch
+          destination_branch: "test" # If blank, default: master
+          pr_title: "Pulling ${{ github.head_ref }} into main" # Title of pull request
+          pr_body: "Automatically created PR from branch: ${{ github.head_ref }} which has been merged into mainnet" # Full markdown support, requires pr_title to be set
+          pr_reviewer: "poomthiti" # Comma-separated list (no spaces)
+          pr_assignee: "actions-user" # Comma-separated list (no spaces)
+          github_token: ${{ secrets.GITHUB_TOKEN }}
