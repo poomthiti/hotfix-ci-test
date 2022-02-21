@@ -23,8 +23,8 @@ jobs:
         with:
           source_branch: ${{ github.head_ref }} # If blank, default: triggered branch
           destination_branch: "main" # If blank, default: master
-          pr_title: "Auto PR from ${{ github.head_ref }} into main" # Title of pull request
-          pr_body: "Automatically created PR from branch: ${{ github.head_ref }}(${{github.event.number}}) which has already been merged into mainnet" # Full markdown support, requires pr_title to be set
+          pr_title: ":dna: Auto PR from ${{ github.head_ref }} into main" # Title of pull request
+          pr_body: "Automatically created PR from branch: ${{ github.head_ref }}([#${{github.event.number}}](https://github.com/${{github.repository}}/pull/${{github.event.number}})) which has already been merged into mainnet" # Full markdown support, requires pr_title to be set
           pr_reviewer: "poomthiti" # Comma-separated list (no spaces)
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -33,7 +33,7 @@ jobs:
         with:
           source_branch: ${{ github.head_ref }} # If blank, default: triggered branch
           destination_branch: "test" # If blank, default: master
-          pr_title: "Auto PR from ${{ github.head_ref }} into test" # Title of pull request
-          pr_body: "Automatically created PR from branch: ${{ github.head_ref }}(${{github.event.number}}) which has already been merged into mainnet" # Full markdown support, requires pr_title to be set
+          pr_title: ":dna: Auto PR from ${{ github.head_ref }} into test" # Title of pull request
+          pr_body: "Automatically created PR from branch: ${{ github.head_ref }}([#${{github.event.number}}](https://github.com/${{github.repository}}/pull/${{github.event.number}})) which has already been merged into mainnet" # Full markdown support, requires pr_title to be set
           pr_reviewer: "poomthiti" # Comma-separated list (no spaces)
           github_token: ${{ secrets.GITHUB_TOKEN }}
