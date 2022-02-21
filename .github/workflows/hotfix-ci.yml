@@ -13,27 +13,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set Git config
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "Github Actions"
-
       - name: Open hotfix PR to main branch
         uses: repo-sync/pull-request@v2
         with:
-          source_branch: ${{ github.head_ref }} # If blank, default: triggered branch
-          destination_branch: "main" # If blank, default: master
-          pr_title: ":dna: Auto PR from ${{ github.head_ref }} into main" # Title of pull request
-          pr_body: "Automatically created PR from branch: ${{ github.head_ref }}([#${{github.event.number}}](https://github.com/${{github.repository}}/pull/${{github.event.number}})) which has already been merged into mainnet" # Full markdown support, requires pr_title to be set
-          pr_reviewer: "poomthiti" # Comma-separated list (no spaces)
+          source_branch: ${{ github.head_ref }}
+          destination_branch: "main"
+          pr_title: ":dna: Auto PR from ${{ github.head_ref }} into main"
+          pr_body: "Automatically created PR from branch: ${{ github.head_ref }}([#${{github.event.number}}](https://github.com/${{github.repository}}/pull/${{github.event.number}})) which has already been merged into mainnet"
+          pr_reviewer: "poomthiti"
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Open hotfix PR to test branch
         uses: repo-sync/pull-request@v2
         with:
-          source_branch: ${{ github.head_ref }} # If blank, default: triggered branch
-          destination_branch: "test" # If blank, default: master
-          pr_title: ":dna: Auto PR from ${{ github.head_ref }} into test" # Title of pull request
-          pr_body: "Automatically created PR from branch: ${{ github.head_ref }}([#${{github.event.number}}](https://github.com/${{github.repository}}/pull/${{github.event.number}})) which has already been merged into mainnet" # Full markdown support, requires pr_title to be set
-          pr_reviewer: "poomthiti" # Comma-separated list (no spaces)
+          source_branch: ${{ github.head_ref }}
+          destination_branch: "test"
+          pr_title: ":dna: Auto PR from ${{ github.head_ref }} into test"
+          pr_body: "Automatically created PR from branch: ${{ github.head_ref }}([#${{github.event.number}}](https://github.com/${{github.repository}}/pull/${{github.event.number}})) which has already been merged into mainnet"
+          pr_reviewer: "poomthiti"
           github_token: ${{ secrets.GITHUB_TOKEN }}
